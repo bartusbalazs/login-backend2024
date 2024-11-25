@@ -31,4 +31,9 @@ public class LoginController {
         return Optional.empty();
     }
 
+    @GetMapping(path = "/logout")
+    public void logout() {
+        SecurityContextHolder.clearContext();
+    }
+
 }
