@@ -94,7 +94,8 @@ public class WebSecurityConfiguration {
 
     private RequestMatcher[] getUnsecuredPaths() {
         return new RequestMatcher[] {
-                new AntPathRequestMatcher("/**/*.*")
+                new AntPathRequestMatcher("/**/*.*"),
+                new AntPathRequestMatcher("/")
         };
     }
 
