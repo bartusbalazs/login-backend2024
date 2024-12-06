@@ -11,7 +11,7 @@ import java.util.List;
 @RestController
 public class TeamsController {
 
-    @GetMapping("/teams")
+    @GetMapping("/api/teams")
     public List<Team> getTeams() {
         return List.of(
                 new Team(0, "Poland", Double.valueOf("1523.53"), "https://www.worldometers.info/img/flags/pl-flag.gif"),

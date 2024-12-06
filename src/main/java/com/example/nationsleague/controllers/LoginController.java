@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(path = "auth")
+@RequestMapping(path = "api/auth")
 public class LoginController {
 
     @GetMapping(path = "/get-user-data")

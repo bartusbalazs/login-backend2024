@@ -10,7 +10,7 @@ import java.util.List;
 @RestController
 public class GroupsController {
 
-    @GetMapping("/groups")
+    @GetMapping("/api/groups")
     public List<TournamentGroup> getTeams() {
         return List.of(
                 new TournamentGroup(0, "Group A", List.of(

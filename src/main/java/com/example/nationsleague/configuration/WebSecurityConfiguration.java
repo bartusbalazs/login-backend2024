@@ -24,6 +24,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 
 import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
 
@@ -74,9 +76,10 @@ public class WebSecurityConfiguration {
                 .headers(header -> header.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
                 .csrf(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(req -> req.requestMatchers("/auth/**").permitAll())
-                .authorizeHttpRequests(req -> req.requestMatchers("/teams/**").hasAnyAuthority("USER", "ADMIN"))
-                .authorizeHttpRequests(req -> req.requestMatchers("/groups/**").hasAuthority("ADMIN"))
+                .authorizeHttpRequests(req -> req.requestMatchers( getUnsecuredPaths() ).permitAll())
+                .authorizeHttpRequests(req -> req.requestMatchers("api/auth/**").permitAll())
+                .authorizeHttpRequests(req -> req.requestMatchers("api/teams/**").hasAnyAuthority("USER", "ADMIN"))
+                .authorizeHttpRequests(req -> req.requestMatchers("api/groups/**").hasAuthority("ADMIN"))
                 .authorizeHttpRequests(req -> req.anyRequest().authenticated())
                 .securityContext(securityContext ->
                         securityContext
@@ -88,5 +91,13 @@ public class WebSecurityConfiguration {
 
         return http.build();
     }
+
+    private RequestMatcher[] getUnsecuredPaths() {
+        return new RequestMatcher[] {
+                new AntPathRequestMatcher("/**/*.*")
+        };
+    }
+
+
 
 }
